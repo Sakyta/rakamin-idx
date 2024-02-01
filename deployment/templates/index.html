@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Risk</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        body {
+            background-color: rgb(36, 36, 36);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 50%;
+            height: 100%;
+            min-height: 80vh;
+            border: 2px solid gray;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+
+        h2 {
+            font-size: 2em;
+        }
+
+        form {
+            padding: 10px 0;    
+            display: flex;    
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .section {
+            display: flex;
+        }
+
+        .left, .right {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            padding: 2em;
+            gap: 10px;
+        }
+
+        input {
+            height: 2.5em;
+            padding: 0 5px;
+        }
+
+        select {
+            height: 2.5em;
+        }
+
+        .btn {
+            margin: 30px 0;
+            cursor: pointer;
+            background-color: gray;
+            border: none;
+            color: white;
+        }
+
+        .btn:hover {
+            background-color: rgb(108, 108, 108);
+        }
+
+        .result {
+            border: 2px solid white;
+            height: 20vh;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Credit Risk Assessment</h1>
+        <p>Project demo created by Nurkahfi Amran Rahmada</p>
+        <form method="post" action="{{url_for('predict')}}">
+            <h2>Predict Credit Risk</h2>
+            <div class="section">
+                <div class="left">
+                    <label for="recoveries">Recoveries</label>
+                    <input type="number" name="recoveries" required>
+                    <label for="pymnt_time">Months Remaining for Next Payment</label>
+                    <input type="number" name="pymnt_time" required>
+                    <label for="out_prncp">Remaining Outstanding Principal</label>
+                    <input type="number" name="out_prncp" required>
+                    <label for="term">The Number of Payments</label>
+                    <select name="term">
+                        <option value="36">36 months</option>
+                        <option value="60">60 months</option>
+                    </select>
+                </div>
+                <div class="right">
+                    <label for="late_fee">Total Late Fees Received</label>
+                    <input type="number" name="late_fee" required>
+                    <label for="int_rate">Income Rate</label>
+                    <input type="number" name="int_rate" required>
+                    <label for="initial_list_status">Initial Listing Status</label>
+                    <select name="initial_list_status">
+                        <option value="0">Whole</option>
+                        <option value="1">Fraction</option>
+                    </select>                    
+                    <input type="submit" class="btn">                     
+                </div>
+            </div>            
+        </form>
+        <div class="result">
+            <h1 class="label"></h1>
+            <p class="probability"></p>
+        </div>
+
+        <script>
+            document.querySelector('form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) 
+                    {
+                        throw new Error('Network Response Was Not Ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.querySelector('.label').textContent = data.prediction;
+                    document.querySelector('.probability').textContent = 'Probability of Bad Loan : ' + (data.probability * 100).toFixed(2) + '%';
+                })
+                .catch(error => {
+                    console.error('Error: ', error);
+                })
+            })
+        </script>
+    </div>
+</body>
+</html>
