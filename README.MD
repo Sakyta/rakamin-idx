@@ -12,8 +12,11 @@ This project aims to create a machine learning model from loan data provided by 
 * Use PC or laptop
 * Clone this repository or download this repository to zip
 * Open the deployment folder
-* Double click on `app.py` (make sure you have python installed on your device)
-* It will open cmd or terminal
+* Double click on `app.py` (make sure you have python and the packages installed on your device)
+* It will open command prompt or terminal
 * CTRL + Click on the server (e.g `http://127.0.0.1:5000`)
 * Your browser will be loaded
 * The project demo is ready
+
+## CREDIT
+© 2024 Nurkahfi Amran Rahmada
