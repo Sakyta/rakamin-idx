@@ -8,7 +8,7 @@ This project aims to create a machine learning model from loan data provided by 
 
 <a href="https://docs.google.com/spreadsheets/d/1iT1JNOBwU4l616_rnJpo0iny7blZvNBs/edit?usp=sharing&ouid=106453318899954059421&rtpof=true&sd=true">Data Dictionary</a>
 
-## How to Run Demo Project
+## How to Run Project Demo
 * Use PC or laptop
 * Clone this repository or download this repository to zip
 * Open the deployment folder
@@ -16,4 +16,4 @@ This project aims to create a machine learning model from loan data provided by 
 * It will open cmd or terminal
 * CTRL + Click on the server (e.g `http://127.0.0.1:5000`)
 * Your browser will be loaded
-* The demo project is ready
+* The project demo is ready
